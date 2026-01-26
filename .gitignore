@@ -46,5 +46,10 @@ Thumbs.db
 # InsightFace models (downloaded at runtime)
 backend/.insightface/
 
+# Event photos (large files, only needed locally for embedding generation)
+# Photos are uploaded to Cloudinary, only embeddings.json is committed
+Event1/
+Event*/
+
 # Don't ignore the example embeddings file
 !backend/embeddings.json
