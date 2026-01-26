@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dark theme by default because you have no taste */
+body {
+  @apply bg-black text-white;
+}
