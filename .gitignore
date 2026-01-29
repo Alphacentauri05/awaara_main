@@ -51,5 +51,9 @@ backend/.insightface/
 Event1/
 Event*/
 
+# Utility scripts (only needed locally, not for deployment)
+backend/generate_embeddings.py
+backend/upload_to_cloudinary.py
+
 # Don't ignore the example embeddings file
 !backend/embeddings.json
