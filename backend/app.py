@@ -56,7 +56,7 @@ async def load_models_and_data():
     
     # Initialize InsightFace
     face_analyzer = FaceAnalysis(
-        name='buffalo_l',  # Using buffalo_l model - decent accuracy
+        name='buffalo_sc',  # Using buffalo_sc (super compact) - fits in 512 MB free tier
         providers=['CPUExecutionProvider']  # CPU only because you're probably on a free tier
     )
     face_analyzer.prepare(ctx_id=0, det_size=(640, 640))
