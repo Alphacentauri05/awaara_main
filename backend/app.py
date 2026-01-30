@@ -163,7 +163,7 @@ async def find_face(file: UploadFile = File(...)):
         
         # Filter by minimum similarity threshold (e.g., 0.3)
         # Because showing random unrelated photos is useless
-        min_similarity = 0.5
+        min_similarity = 0.3
         matches = []
         
         for idx in top_indices:
