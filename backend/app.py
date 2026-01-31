@@ -64,7 +64,7 @@ async def load_models_and_data():
     print("Model loaded. Now loading embeddings...")
     
     # Load embeddings from JSON file
-    embeddings_path = os.path.join(os.path.dirname(__file__), "embeddings.json")
+    embeddings_path = os.path.join(os.path.dirname(__file__), "embeddings1.json")
     
     if not os.path.exists(embeddings_path):
         print(f"WARNING: {embeddings_path} not found. Creating empty file.")
