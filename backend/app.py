@@ -114,7 +114,7 @@ async def find_face(
             status_code=500,
             detail="Model not loaded yet. Server crashed. Predictable."
         )
-    embeddings_path = os.path.join(os.path.dirname(_file),f"embeddings{eventId}.json")
+    embeddings_path = os.path.join(os.path.dirname(__file__),f"embeddings{eventId}.json")
 
     if not os.path.exists(embeddings_path):
         raise HTTPException(
