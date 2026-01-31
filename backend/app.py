@@ -15,6 +15,7 @@ import insightface
 from insightface.app import FaceAnalysis
 from typing import List
 import os
+from fastapi import Form
 
 # Initialize FastAPI with a disappointed tone
 app = FastAPI(
@@ -64,17 +65,17 @@ async def load_models_and_data():
     print("Model loaded. Now loading embeddings...")
     
     # Load embeddings from JSON file
-    embeddings_path = os.path.join(os.path.dirname(__file__), "embeddings1.json")
+    # embeddings_path = os.path.join(os.path.dirname(__file__), "embeddings1.json")
     
-    if not os.path.exists(embeddings_path):
-        print(f"WARNING: {embeddings_path} not found. Creating empty file.")
-        with open(embeddings_path, "w") as f:
-            json.dump([], f)
-        embeddings_data = []
-    else:
-        with open(embeddings_path, "r") as f:
-            embeddings_data = json.load(f)
-        print(f"Loaded {len(embeddings_data)} embeddings. Assuming they're actually valid.")
+    # if not os.path.exists(embeddings_path):
+    #     print(f"WARNING: {embeddings_path} not found. Creating empty file.")
+    #     with open(embeddings_path, "w") as f:
+    #         json.dump([], f)
+    #     embeddings_data = []
+    # else:
+    #     with open(embeddings_path, "r") as f:
+    #         embeddings_data = json.load(f)
+    #     print(f"Loaded {len(embeddings_data)} embeddings. Assuming they're actually valid.")
     
     print("Startup complete. Ready to disappoint users.")
 
@@ -89,7 +90,10 @@ async def root():
     }
 
 @app.post("/find", response_model=FindResponse)
-async def find_face(file: UploadFile = File(...)):
+async def find_face(
+    eventId: str = Form(...),
+    file: UploadFile = File(...)
+):
     """
     Find photos containing the uploaded face.
     
@@ -110,11 +114,21 @@ async def find_face(file: UploadFile = File(...)):
             status_code=500,
             detail="Model not loaded yet. Server crashed. Predictable."
         )
-    
+    embeddings_path = os.path.join(os.path.dirname(_file),f"embeddings{eventId}.json")
+
+    if not os.path.exists(embeddings_path):
+        raise HTTPException(
+            status_code=404,
+            detail=f"Embeddings file not found for event {eventId}"
+        )
+
+    with open(embeddings_path, "r") as f:
+        embeddings_data = json.load(f)
+
     if not embeddings_data:
         raise HTTPException(
             status_code=400,
-            detail="No embeddings available. Did you forget to generate embeddings.json?"
+            detail="Embeddings file is empty for this event"
         )
     
     try:
