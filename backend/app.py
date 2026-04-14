@@ -27,7 +27,11 @@ app = FastAPI(
 # CORS - allowing everything because security is someone else's problem
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://www.awaara.club","https://awaara.club", "https://awaara-seven.vercel.app/"],  # In production, replace with your Vercel URL
+    allow_origins=[
+        "https://www.awaara.club",
+        "https://awaara.club",
+        "https://awaara-seven.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
